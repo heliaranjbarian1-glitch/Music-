@@ -393,6 +393,7 @@ const playerTitle = document.getElementById("songTitle");
 const playerArtist = document.getElementById("artistName");
 
 let currentSong = null;
+let currentButton = null;
 function createSongCard(song){
 
 return `
@@ -420,9 +421,9 @@ alt="${song.title}">
 
 <button
 class="play-btn"
-onclick="playSong('${song.audio}','${song.cover}','${song.title}','${song.artist}')">
+onclick="playSong('${song.audio}','${song.cover}','${song.title}','${song.artist}',this)"
 
-▶
+▶ Play
 
 </button>
 
@@ -464,14 +465,32 @@ song.title.toLowerCase().includes(value) ||
 song.artist.toLowerCase().includes(value)
 
 );
-  function playSong(audio, cover, title, artist){
+  function playSong(audio, cover, title, artist, button){
 
     if(!audio){
         alert("This song has no audio yet.");
         return;
     }
 
-    currentSong = audio;
+    if(audioPlayer.src.includes(audio) && !audioPlayer.paused){
+
+        audioPlayer.pause();
+
+        button.innerHTML = "▶ Play";
+
+        return;
+
+    }
+
+    if(currentButton){
+
+        currentButton.innerHTML = "▶";
+
+    }
+
+    currentButton = button;
+
+    button.innerHTML = "⏸ Pause";
 
     audioPlayer.src = audio;
 
@@ -486,6 +505,11 @@ song.artist.toLowerCase().includes(value)
     audioPlayer.play();
 
   }
+  audioPlayer.onended = function(){
+
+    button.innerHTML = "▶ Play";
+
+};
   
 
 renderSongs(filtered);
