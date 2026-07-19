@@ -10,8 +10,8 @@ link:"https://cdn.imageurlgenerator.com/uploads/d86c2dfb-47df-42f3-8ddf-1807a4e9
 {
 title:"Moth To A Flame",
 artist:"The Weeknd",
-cover:"",
-link:""
+cover:"https://i.ibb.co/qYdTYHy8/op2ybwfjhnv71.jpg",
+link:"https://cdn.imageurlgenerator.com/uploads/a98403c2-cc4d-44b0-9abe-7fe61773b1f5.mp3"
 },
 
 {
