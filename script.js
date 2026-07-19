@@ -3,7 +3,7 @@ const songs = [
 {
 title:"The Fate of Ophelia",
 artist:"Taylor Swift",
-cover:"",
+cover:"https://i.ibb.co/rRqDhvbW/artworks-FIGa-Jd-RBUi-Vb-0-t1080x1080.jpg",
 audio:"https://cdn.imageurlgenerator.com/uploads/dbec836a-da18-43e0-9327-3993c14d413e.mp3"
 },
 
@@ -24,22 +24,22 @@ audio:"https://cdn.imageurlgenerator.com/uploads/f9876a91-057b-4917-9382-b9b11cd
 {
 title:"Church",
 artist:"Chase Atlantic",
-cover:"",
-link:""
+cover:"https://i.ibb.co/V0w02Gtd/artworks-Za1-VGZog1-WC1-0-t500x500.jpg",
+audio:"https://cdn.imageurlgenerator.com/uploads/11cf3df2-6b87-4a56-baa5-76e4f53a8014.mp3"
 },
 
 {
 title:"Heaven and Back",
 artist:"Chase Atlantic",
-cover:"",
-link:""
+cover:"https://i.ibb.co/B2f1V12g/1a0aad4877b3d011d313087633591238.jpg",
+audio:"https://cdn.imageurlgenerator.com/uploads/f807fc96-9de4-475e-9c09-3c6707a4583c.m4a"
 },
 
 {
 title:"The Walls",
 artist:"Chase Atlantic",
-cover:"",
-link:""
+cover:"https://i.ibb.co/ZznbdfhG/artworks-000245604860-yob8j3-t1080x1080.jpg",
+audio:"https://cdn.imageurlgenerator.com/uploads/752ed9a0-302c-44bf-839e-76929fe5307d.mp3"
 },
 
 {
