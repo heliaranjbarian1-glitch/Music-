@@ -385,13 +385,26 @@ link:""
 ];
 const songsContainer = document.getElementById("songsContainer");
 const searchInput = document.getElementById("searchInput");
+const audioPlayer = document.getElementById("audioPlayer");
+const miniPlayer = document.getElementById("miniPlayer");
 
+const playerCover = document.getElementById("cover");
+const playerTitle = document.getElementById("songTitle");
+const playerArtist = document.getElementById("artistName");
+
+let currentSong = null;
 function createSongCard(song){
 
 return `
+
 <div class="song-card">
 
-<img class="song-cover" src="${song.cover || "https://placehold.co/300x300/111/ffffff?text=%E2%99%AA"}">
+<div class="song-left">
+
+<img
+class="song-cover"
+src="${song.cover || "https://placehold.co/300x300/111/ffffff?text=♪"}"
+alt="${song.title}">
 
 <div class="song-info">
 
@@ -399,13 +412,31 @@ return `
 
 <p>${song.artist}</p>
 
-<a href="${song.link}" target="_blank" class="download-btn">
-Download
-</a>
+</div>
+
+</div>
+
+<div class="song-right">
+
+<button
+class="play-btn"
+onclick="playSong('${song.audio}','${song.cover}','${song.title}','${song.artist}')">
+
+▶
+
+</button>
+
+<button
+class="favorite-btn">
+
+♡
+
+</button>
 
 </div>
 
 </div>
+
 `;
 
 }
@@ -423,6 +454,28 @@ songsContainer.innerHTML+=createSongCard(song);
 renderSongs(songs);
 
 searchInput.addEventListener("input",()=>{
+  function playSong(audio, cover, title, artist){
+
+    if(!audio){
+        alert("This song has no audio yet.");
+        return;
+    }
+
+    currentSong = audio;
+
+    audioPlayer.src = audio;
+
+    playerCover.src = cover || "https://placehold.co/300x300/111/ffffff?text=♪";
+
+    playerTitle.textContent = title;
+
+    playerArtist.textContent = artist;
+
+    miniPlayer.classList.remove("hidden");
+
+    audioPlayer.play();
+
+  }
 
 const value=searchInput.value.toLowerCase();
 
