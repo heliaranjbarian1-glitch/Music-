@@ -385,6 +385,7 @@ link:""
 ];
 const songsContainer = document.getElementById("songsContainer");
 const searchInput = document.getElementById("searchInput");
+
 const audioPlayer = document.getElementById("audioPlayer");
 const miniPlayer = document.getElementById("miniPlayer");
 
@@ -394,6 +395,11 @@ const playerArtist = document.getElementById("artistName");
 
 let currentSong = null;
 let currentButton = null;
+
+// ===========================
+// ساخت کارت آهنگ
+// ===========================
+
 function createSongCard(song){
 
 return `
@@ -421,18 +427,20 @@ alt="${song.title}">
 
 <button
 class="play-btn"
-onclick="playSong('${song.audio}','${song.cover}','${song.title}','${song.artist}',this)"
+onclick="playSong('${song.audio}','${song.cover}','${song.title}','${song.artist}',this)">
 
 ▶ Play
 
 </button>
 
-<button
-class="favorite-btn">
+<a
+href="${song.audio}"
+target="_blank"
+class="download-btn">
 
-♡
+Download
 
-</button>
+</a>
 
 </div>
 
@@ -442,77 +450,135 @@ class="favorite-btn">
 
 }
 
+// ===========================
+// نمایش آهنگ‌ها
+// ===========================
+
 function renderSongs(list){
 
 songsContainer.innerHTML="";
 
 list.forEach(song=>{
-songsContainer.innerHTML+=createSongCard(song);
+
+songsContainer.innerHTML += createSongCard(song);
+
 });
 
 }
 
 renderSongs(songs);
 
+// ===========================
+// سرچ
+// ===========================
+
 searchInput.addEventListener("input",()=>{
 
-const value=searchInput.value.toLowerCase();
+const value = searchInput.value.toLowerCase();
 
-const filtered=songs.filter(song=>
+const filtered = songs.filter(song=>
 
 song.title.toLowerCase().includes(value) ||
 
 song.artist.toLowerCase().includes(value)
 
 );
-  function playSong(audio, cover, title, artist, button){
+
+renderSongs(filtered);
+
+});
+// ===========================
+// پخش آهنگ
+// ===========================
+
+function playSong(audio, cover, title, artist, button){
 
     if(!audio){
         alert("This song has no audio yet.");
         return;
     }
 
-    if(audioPlayer.src.includes(audio) && !audioPlayer.paused){
+    // اگر همان آهنگ در حال پخش بود
+    if(currentSong === audio){
 
-        audioPlayer.pause();
+        if(audioPlayer.paused){
 
-        button.innerHTML = "▶ Play";
+            audioPlayer.play();
+            button.innerHTML = "⏸ Pause";
+
+        }else{
+
+            audioPlayer.pause();
+            button.innerHTML = "▶ Play";
+
+        }
 
         return;
 
     }
 
+    // دکمه قبلی برگردد به Play
     if(currentButton){
 
-        currentButton.innerHTML = "▶";
+        currentButton.innerHTML = "▶ Play";
 
     }
 
+    currentSong = audio;
     currentButton = button;
 
     button.innerHTML = "⏸ Pause";
 
     audioPlayer.src = audio;
 
-    playerCover.src = cover || "https://placehold.co/300x300/111/ffffff?text=♪";
+    playerCover.src =
+    cover || "https://placehold.co/300x300/111/ffffff?text=♪";
 
     playerTitle.textContent = title;
-
     playerArtist.textContent = artist;
 
     miniPlayer.classList.remove("hidden");
 
     audioPlayer.play();
 
-  }
-  audioPlayer.onended = function(){
+}
 
-    button.innerHTML = "▶ Play";
+// وقتی آهنگ تمام شد
+audioPlayer.addEventListener("ended",()=>{
 
-};
-  
+    if(currentButton){
 
-renderSongs(filtered);
+        currentButton.innerHTML="▶ Play";
+
+    }
+
+    currentSong = null;
 
 });
-alert("script loaded");
+// ===========================
+// اگر آهنگ از خود پلیر Pause شد
+// ===========================
+
+audioPlayer.addEventListener("pause",()=>{
+
+    if(currentButton){
+
+        currentButton.innerHTML = "▶ Play";
+
+    }
+
+});
+
+// ===========================
+// اگر آهنگ از خود پلیر Play شد
+// ===========================
+
+audioPlayer.addEventListener("play",()=>{
+
+    if(currentButton){
+
+        currentButton.innerHTML = "⏸ Pause";
+
+    }
+
+});
